@@ -20,6 +20,13 @@ from mmdet.models import build_detector
 from mmdet.utils import setup_multi_processes
 
 
+"""
+/home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03212022_2/bin/python tools/test.py /home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/mask_rcnn/mask_rcnn_r50_fpn_1x_HULA_compartment.py /data/syed/mmdet/run4/epoch_4.pth --work-dir /data/syed/mmdet/results/run4/ --out /data/syed/mmdet/run4_ep4_test_results.pkl --eval bbox segm --options "classwise=True"
+
+
+"""
+
+
 def parse_args():
     parser = argparse.ArgumentParser(
         description='MMDet test (and eval) a model')

@@ -7,7 +7,7 @@ img_norm_cfg = dict(
 train_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
-    dict(type='Resize', img_scale=(2048, 2048), keep_ratio=True),
+    dict(type='Resize', img_scale=(1024, 1024), keep_ratio=True),
     dict(type='RandomFlip', flip_ratio=0.5),
     dict(type='Normalize', **img_norm_cfg),
     dict(type='Pad', size_divisor=32),
@@ -18,7 +18,7 @@ test_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(
         type='MultiScaleFlipAug',
-        img_scale=(2048, 2048),
+        img_scale=(1024, 1024),
         flip=False,
         transforms=[
             dict(type='Resize', keep_ratio=True),
@@ -30,24 +30,26 @@ test_pipeline = [
         ])
 ]
 data = dict(
-    samples_per_gpu=8,
+    samples_per_gpu=12,
     workers_per_gpu=1,
     train=dict(
         type=dataset_type,
-        ann_file=data_root + 'coco_tma_tile_train_reduced_folds_1-4.json',
+        ann_file=data_root + 'coco_tma_tile_train_folds_1-4.json',
         img_prefix='',
         pipeline=train_pipeline,
         classes=CLASSES),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'coco_tma_tile_validation_reduced_fold0.json',
+        ann_file=data_root + 'coco_tma_tile_validation_fold0.json',
         img_prefix='',
         pipeline=test_pipeline,
+        samples_per_gpu=60,
         classes=CLASSES),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'coco_tma_tile_validation_reduced_fold0.json',
+        ann_file=data_root + 'coco_tma_tile_validation_fold0.json',
         img_prefix='',
         pipeline=test_pipeline,
+        samples_per_gpu=60,
         classes=CLASSES))
 evaluation = dict(metric=['bbox', 'segm'], classwise=True)

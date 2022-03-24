@@ -13,6 +13,14 @@ from mmdet.core.visualization import imshow_det_bboxes
 from mmdet.datasets.builder import build_dataset
 
 
+"""
+/home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03212022_2/bin/python3.7 \
+ tools/misc/browse_dataset.py \
+ /home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/mask_rcnn/mask_rcnn_r50_fpn_1x_HULA_compartment.py \
+ --output-dir /data/syed/mmdet/browse_dataset/TMA_tile/ --show-interval 8
+"""
+
+
 def parse_args():
     parser = argparse.ArgumentParser(description='Browse a dataset')
     parser.add_argument('config', help='train config file path')

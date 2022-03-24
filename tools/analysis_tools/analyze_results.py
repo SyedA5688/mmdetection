@@ -141,6 +141,26 @@ class ResultVisualizer:
         self._save_image_gts_results(dataset, results, bad_mAPs, bad_dir)
 
 
+"""
+python tools/analysis_tools/analyze_results.py \
+      ${CONFIG} \
+      ${PREDICTION_PATH} \
+      ${SHOW_DIR} \
+      [--show] \
+      [--wait-time ${WAIT_TIME}] \
+      [--topk ${TOPK}] \
+      [--show-score-thr ${SHOW_SCORE_THR}] \
+      [--cfg-options ${CFG_OPTIONS}]
+
+/home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03212022_2/bin/python3.7 tools/analysis_tools/analyze_results.py \
+ /home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/mask_rcnn/mask_rcnn_r50_fpn_1x_HULA_compartment.py \
+ /data/syed/mmdet/run4/run4_ep4_test_results.pkl \
+ /data/syed/mmdet/analyze_results/ --topk 20 --show-score-thr 0
+ 
+// Might need to try several values of show-score-thr, Pietro used 0.3, documentation had default value as 0
+"""
+
+
 def parse_args():
     parser = argparse.ArgumentParser(
         description='MMDet eval image prediction result for each')
