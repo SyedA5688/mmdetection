@@ -30,7 +30,7 @@ test_pipeline = [
         ])
 ]
 data = dict(
-    samples_per_gpu=12,
+    samples_per_gpu=20,
     workers_per_gpu=1,
     train=dict(
         type=dataset_type,
@@ -40,16 +40,16 @@ data = dict(
         classes=CLASSES),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'coco_tma_tile_validation_fold0.json',
+        ann_file=data_root + 'coco_tma_tile_validation_fold0_fixed.json',
         img_prefix='',
         pipeline=test_pipeline,
-        samples_per_gpu=60,
+        samples_per_gpu=80,
         classes=CLASSES),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'coco_tma_tile_validation_fold0.json',
+        ann_file=data_root + 'coco_tma_tile_validation_fold0_fixed.json',
         img_prefix='',
         pipeline=test_pipeline,
-        samples_per_gpu=60,
+        samples_per_gpu=80,
         classes=CLASSES))
-evaluation = dict(metric=['bbox', 'segm'], classwise=True)
+evaluation = dict(metric=['bbox', 'segm'], classwise=True, classwise_log=True)

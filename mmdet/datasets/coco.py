@@ -389,6 +389,7 @@ class CocoDataset(CustomDataset):
                  logger=None,
                  jsonfile_prefix=None,
                  classwise=False,
+                 classwise_log=False,
                  proposal_nums=(100, 300, 1000),
                  iou_thrs=None,
                  metric_items=None):
@@ -404,6 +405,7 @@ class CocoDataset(CustomDataset):
                 the file path and the prefix of filename, e.g., "a/b/prefix".
                 If not specified, a temp file will be created. Default: None.
             classwise (bool): Whether to evaluating the AP for each class.
+            classwise_log (bool): Whether to log classwise AP for each class
             proposal_nums (Sequence[int]): Proposal number used for evaluating
                 recalls, such as recall@100, recall@1000.
                 Default: (100, 300, 1000).
@@ -586,10 +588,24 @@ class CocoDataset(CustomDataset):
                         f'{cocoEval.stats[coco_metric_names[metric_item]]:.3f}'
                     )
                     eval_results[key] = val
+
                 ap = cocoEval.stats[:6]
                 eval_results[f'{metric}_mAP_copypaste'] = (
                     f'{ap[0]:.3f} {ap[1]:.3f} {ap[2]:.3f} {ap[3]:.3f} '
                     f'{ap[4]:.3f} {ap[5]:.3f}')
+
+                if classwise and classwise_log:
+                    class_cp = ''
+                    for class_name, class_AP in results_per_category:
+                        key = f'{metric}_AP_{class_name}'
+                        val = float(
+                            f'{float(class_AP):.3f}'
+                        )
+                        class_cp += str(val) + ' '
+                        eval_results[key] = val
+
+                    eval_results[f'classwise_{metric}_AP_copypaste'] = class_cp[:-1]
+
         if tmp_dir is not None:
             tmp_dir.cleanup()
         return eval_results

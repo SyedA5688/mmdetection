@@ -42,6 +42,6 @@ optimizer = dict(
 lr_config = dict(warmup_iters=1000, step=[13, 16])
 runner = dict(max_epochs=20)
 
-work_dir = "/data/syed/mmdet/run6_swin_full_trainset/"
+work_dir = "/data/syed/mmdet/run8_swin_full_trainset/"
 gpu_ids = range(6, 7)
 seed = 0

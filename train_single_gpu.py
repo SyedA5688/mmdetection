@@ -6,8 +6,8 @@ import mmcv
 
 import os.path as osp
 
-# cfg = Config.fromfile("/home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/mask_rcnn/mask_rcnn_r50_fpn_1x_HULA_compartment.py")
-cfg = Config.fromfile("/home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/swin/mask_rcnn_swin-t-p4-w7_fpn_1x_coco_HULA_compartment.py")
+cfg = Config.fromfile("/home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/mask_rcnn/mask_rcnn_r50_fpn_1x_HULA_compartment.py")
+# cfg = Config.fromfile("/home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/swin/mask_rcnn_swin-t-p4-w7_fpn_1x_coco_HULA_compartment.py")
 
 datasets = [build_dataset(cfg.data.train)]
 
