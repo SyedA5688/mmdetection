@@ -1,5 +1,4 @@
 optimizer = dict(
-    _delete_=True,
     type='AdamW',
     lr=0.0001,
     betas=(0.9, 0.999),
@@ -9,6 +8,12 @@ optimizer = dict(
             'absolute_pos_embed': dict(decay_mult=0.),
             'relative_position_bias_table': dict(decay_mult=0.),
             'norm': dict(decay_mult=0.)
-        }))
-lr_config = dict(warmup_iters=1000, step=[13, 16])
+        }))  # _delete_=True,
+optimizer_config = dict(grad_clip=None)
+lr_config = dict(
+    policy='step',
+    warmup='linear',
+    warmup_iters=1000,
+    warmup_ratio=0.001,
+    step=[13, 16])
 runner = dict(type='EpochBasedRunner', max_epochs=20)

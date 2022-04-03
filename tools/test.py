@@ -21,8 +21,7 @@ from mmdet.utils import setup_multi_processes
 
 
 """
-/home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03212022_2/bin/python tools/test.py /home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/mask_rcnn/mask_rcnn_r50_fpn_1x_HULA_compartment.py /data/syed/mmdet/run4/epoch_4.pth --work-dir /data/syed/mmdet/results/run4/ --out /data/syed/mmdet/run4_ep4_test_results.pkl --eval bbox segm --options "classwise=True"
-
+/home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03212022_2/bin/python tools/test.py /home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/swin/mask_rcnn_swin-t-p4-w7_fpn_1x_coco_HULA_compartment.py /data/syed/mmdet/run11_swin_multi_gpu_autoaug/epoch_4.pth --work-dir /data/syed/mmdet/results/run11_2/ --out /data/syed/mmdet/results/run11_ep4_test_results_2.pkl --eval bbox segm --options "classwise=True" --gpu-id 4
 
 """
 

@@ -7,23 +7,23 @@ img_norm_cfg = dict(
 train_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
-    # dict(type='Resize', img_scale=(2048, 2048), keep_ratio=True),
+    # dict(type='Resize', img_scale=(1024, 1024), keep_ratio=True),
     dict(type='RandomFlip', flip_ratio=0.5),
     dict(
         type='AutoAugment',
         policies=[[
             dict(
                 type='Resize',
-                img_scale=[(768, 2048), (896, 2048), (1024, 2048), (1152, 2048),
-                           (1280, 2048), (1408, 2048), (1536, 2048), (1664, 2048),
-                           (1792, 2048), (1920, 2048), (2048, 2048)],
+                img_scale=[(384, 1024), (448, 1024), (512, 1024), (576, 1024),
+                           (640, 1024), (704, 1024), (768, 1024), (832, 1024),
+                           (896, 1024), (960, 1024), (1024, 1024)],
                 multiscale_mode='value',
                 keep_ratio=True)
         ],
                   [
                       dict(
                           type='Resize',
-                          img_scale=[(1152, 2048), (1280, 2048), (1408, 2048)],
+                          img_scale=[(576, 1024), (640, 1024), (704, 1024)],
                           multiscale_mode='value',
                           keep_ratio=True),
                       dict(
@@ -33,10 +33,10 @@ train_pipeline = [
                           allow_negative_crop=True),
                       dict(
                           type='Resize',
-                          img_scale=[(768, 2048), (896, 2048), (1024, 2048),
-                                     (1152, 2048), (1280, 2048), (1408, 2048),
-                                     (1536, 2048), (1664, 2048), (1792, 2048),
-                                     (1920, 2048), (2048, 2048)],
+                          img_scale=[(384, 1024), (448, 1024), (512, 1024),
+                                     (576, 1024), (640, 1024), (704, 1024),
+                                     (768, 1024), (832, 1024), (896, 1024),
+                                     (960, 1024), (1024, 1024)],
                           multiscale_mode='value',
                           override=True,
                           keep_ratio=True)
@@ -50,7 +50,7 @@ test_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(
         type='MultiScaleFlipAug',
-        img_scale=(2048, 2048),
+        img_scale=(1024, 1024),
         flip=False,
         transforms=[
             dict(type='Resize', keep_ratio=True),
@@ -62,7 +62,7 @@ test_pipeline = [
         ])
 ]
 data = dict(
-    samples_per_gpu=3,
+    samples_per_gpu=15,
     workers_per_gpu=8,
     train=dict(
         type=dataset_type,
@@ -75,13 +75,13 @@ data = dict(
         ann_file=data_root + 'coco_tma_tile_validation_fold0_fixed.json',
         img_prefix='',
         pipeline=test_pipeline,
-        samples_per_gpu=12,
+        samples_per_gpu=65,
         classes=CLASSES),
     test=dict(
         type=dataset_type,
         ann_file=data_root + 'coco_tma_tile_validation_fold0_fixed.json',
         img_prefix='',
         pipeline=test_pipeline,
-        samples_per_gpu=12,
+        samples_per_gpu=65,
         classes=CLASSES))
-evaluation = dict(metric=['bbox', 'segm'], classwise=True, classwise_log=True)  # ToDo: take out classwise_log for analyze_results and test
+evaluation = dict(metric=['bbox', 'segm'], classwise=True, classwise_log=True)  # ToDo: take out classwise_log for analyze_results
