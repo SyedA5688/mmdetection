@@ -6,10 +6,21 @@ CLASSES = ("Glomerulus", "Arteriole", "Artery")
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 
-# Check yolox_tiny_8x8_300e_coco.py and yolox_s_8x8_300e_coco.py for Mosaic examples. Doesn't work for instance segm?
+# Check instaboost instance segmentation models for InstaBoost examples
 
 train_pipeline = [
     dict(type='LoadImageFromFile'),
+    dict(
+        type='InstaBoost',
+        action_candidate=('normal', 'horizontal', 'skip'),
+        action_prob=(1, 0, 0),
+        scale=(0.8, 1.2),
+        dx=15,
+        dy=15,
+        theta=(-1, 1),
+        color_prob=0.5,
+        hflag=False,
+        aug_ratio=0.5),
     dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
     dict(type='Resize', img_scale=img_scale, keep_ratio=True),
     dict(type='RandomFlip', flip_ratio=0.5),
@@ -47,13 +58,13 @@ data = dict(
         ann_file=data_root + 'coco_tma_tile_validation_fold0_fixed.json',
         img_prefix='',
         pipeline=test_pipeline,
-        samples_per_gpu=12,
+        samples_per_gpu=14,
         classes=CLASSES),
     test=dict(
         type=dataset_type,
         ann_file=data_root + 'coco_tma_tile_validation_fold0_fixed.json',
         img_prefix='',
         pipeline=test_pipeline,
-        samples_per_gpu=12,
+        samples_per_gpu=14,
         classes=CLASSES))
 evaluation = dict(metric=['bbox', 'segm'], classwise=True, classwise_log=True)  # ToDo: take out classwise_log for analyze_results and test

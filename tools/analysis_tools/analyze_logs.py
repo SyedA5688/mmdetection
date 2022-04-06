@@ -101,13 +101,13 @@ Guide:
 python tools/analysis_tools/analyze_logs.py plot_curve [--keys ${KEYS}] [--title ${TITLE}] [--legend ${LEGEND}] [--backend ${BACKEND}] [--style ${STYLE}] [--out ${OUT_FILE}]
 
 
-/home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03212022_2/bin/python tools/analysis_tools/analyze_logs.py plot_curve /data/syed/mmdet/results/run8/None.log.json --keys loss_cls loss_bbox --title "Swin Transformer CLS layer and BBox Loss" --legend loss_cls loss_bbox --out /data/syed/mmdet/results/run8/ep1-3_loss_cls_bbox_curves.png
+/home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03212022_2/bin/python tools/analysis_tools/analyze_logs.py plot_curve /data/syed/mmdet/run11_swin_multi_gpu_autoaug/20220331_001952.log.json --keys loss_cls loss_bbox --title "Swin Transformer CLS layer and BBox Loss" --legend loss_cls loss_bbox --out /data/syed/mmdet/results/run11/ep1-12_loss_cls_bbox_curves.png
 
-/home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03212022_2/bin/python tools/analysis_tools/analyze_logs.py plot_curve /data/syed/mmdet/results/run8/None.log.json --keys loss_mask --title "Swin Transformer Mask Loss Curve" --legend loss_mask --out /data/syed/mmdet/results/run8/ep1-3_loss_mask_curve.png
+/home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03212022_2/bin/python tools/analysis_tools/analyze_logs.py plot_curve /data/syed/mmdet/run11_swin_multi_gpu_autoaug/20220331_001952.log.json --keys loss_mask --title "Swin Transformer Mask Loss Curve" --legend loss_mask --out /data/syed/mmdet/results/run11/ep1-12_loss_mask_curve.png
 
-/home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03212022_2/bin/python tools/analysis_tools/analyze_logs.py plot_curve /data/syed/mmdet/results/run8/None.log.json --keys loss --title "Swin Transformer Loss Curve" --legend loss --out /data/syed/mmdet/results/run8/ep1-3_loss_curve.png
+/home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03212022_2/bin/python tools/analysis_tools/analyze_logs.py plot_curve /data/syed/mmdet/run11_swin_multi_gpu_autoaug/20220331_001952.log.json --keys loss --title "Swin Transformer Loss Curve" --legend loss --out /data/syed/mmdet/results/run11/ep1-12_loss_curve.png
 
-/home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03212022_2/bin/python tools/analysis_tools/analyze_logs.py plot_curve /data/syed/mmdet/results/run8/None.log.json --keys bbox_mAP --title "Swin Transformer Bounding Box mAP" --legend bbox_mAP --out /data/syed/mmdet/results/run8/ep1-4_bbox_mAP_curve.png
+/home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03212022_2/bin/python tools/analysis_tools/analyze_logs.py plot_curve /data/syed/mmdet/run11_swin_multi_gpu_autoaug/20220331_001952.log.json --keys bbox_mAP --title "Swin Transformer Bounding Box mAP" --legend bbox_mAP --out /data/syed/mmdet/results/run11/ep1-12_bbox_mAP_curve.png
 """
 
 
