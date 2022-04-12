@@ -1,6 +1,6 @@
 _base_ = [
     '../_base_/models/mask_rcnn_r50_fpn_HULA_compartment.py',
-    '../_base_/datasets/HULA_compartment_instance.py',
+    '../_base_/datasets/HULA_compartment_instance_gan_inference.py',
     '../_base_/schedules/schedule_1x_HULA_swin.py',
     '../_base_/default_runtime.py'
 ]
@@ -27,6 +27,6 @@ model = dict(
         init_cfg=dict(type='Pretrained', checkpoint=pretrained)),
     neck=dict(in_channels=[96, 192, 384, 768]))
 
-work_dir = "/data/syed/mmdet/run16_swin_multi_gpu_customaug_highreg/"
-gpu_ids = range(6, 8)
+work_dir = "/data/syed/mmdet/run14_swin_multi_gpu_customaug/"
+gpu_ids = range(4)
 seed = 0

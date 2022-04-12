@@ -153,7 +153,9 @@ python tools/analysis_tools/analyze_results.py \
       [--show-score-thr ${SHOW_SCORE_THR}] \
       [--cfg-options ${CFG_OPTIONS}]
  
- /home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03212022_2/bin/python3.7 tools/analysis_tools/analyze_results.py /home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/swin/mask_rcnn_swin-t-p4-w7_fpn_1x_coco_HULA_compartment.py /data/syed/mmdet/results/run11_ep4_test_results.pkl /data/syed/mmdet/analyze_results/run11 --topk 20 --show-score-thr 0.3
+ /home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03212022_2/bin/python3.7 tools/analysis_tools/analyze_results.py /home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/swin/mask_rcnn_swin-t-p4-w7_fpn_1x_coco_HULA_compartment_gan_inference.py /data/syed/mmdet/results/run14_ep3_gan1k_inference.pkl /data/syed/mmdet/analyze_results/run14_ep3_gan1k_inference --topk 25 --show-score-thr 0.3
+ 
+ /home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03212022_2/bin/python3.7 tools/analysis_tools/analyze_results.py /home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/swin/mask_rcnn_swin-t-p4-w7_fpn_1x_coco_HULA_compartment_gan_inference.py /data/syed/mmdet/results/run14_ep6_gan1k_inference.pkl /data/syed/mmdet/analyze_results/run14_ep6_gan1k_inference --topk 25 --show-score-thr 0.3
 """
 
 

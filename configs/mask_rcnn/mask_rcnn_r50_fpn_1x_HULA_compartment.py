@@ -4,6 +4,6 @@ _base_ = [
     '../_base_/schedules/schedule_1x_HULA_maskrcnn.py',
     '../_base_/default_runtime.py'
 ]
-work_dir = "/data/syed/mmdet/run7_maskrcnn_full_trainset/"
-gpu_ids = range(5, 6)
+work_dir = "/data/syed/mmdet/run15_maskrcnn_customaug/"
+gpu_ids = range(0, 1)
 seed = 0

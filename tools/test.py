@@ -23,6 +23,9 @@ from mmdet.utils import setup_multi_processes
 """
 /home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03212022_2/bin/python tools/test.py /home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/swin/mask_rcnn_swin-t-p4-w7_fpn_1x_coco_HULA_compartment.py /data/syed/mmdet/run11_swin_multi_gpu_autoaug/epoch_4.pth --work-dir /data/syed/mmdet/results/run11_2/ --out /data/syed/mmdet/results/run11_ep4_test_results_2.pkl --eval bbox segm --options "classwise=True" --gpu-id 4
 
+
+# Command for dummy COCO file for GAN generated images
+/home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03212022_2/bin/python tools/test.py /home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/swin/mask_rcnn_swin-t-p4-w7_fpn_1x_coco_HULA_compartment_gan_inference.py /data/syed/mmdet/run14_swin_multi_gpu_customaug/epoch_3.pth --work-dir /data/syed/mmdet/results/run14_ep3_gan1k/ --out /data/syed/mmdet/results/run14_ep3_gan1k_inference.pkl --gpu-id 4
 """
 
 
