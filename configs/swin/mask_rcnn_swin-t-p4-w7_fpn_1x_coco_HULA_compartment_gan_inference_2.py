@@ -1,6 +1,6 @@
 _base_ = [
     '../_base_/models/mask_rcnn_r50_fpn_HULA_compartment.py',
-    '../_base_/datasets/HULA_compartment_instance.py',
+    '../_base_/datasets/HULA_compartment_instance_gan_inference_2.py',
     '../_base_/schedules/schedule_1x_HULA_swin.py',
     '../_base_/default_runtime.py'
 ]

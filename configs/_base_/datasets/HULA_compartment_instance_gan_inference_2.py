@@ -6,7 +6,6 @@ CLASSES = ("Glomerulus", "Arteriole", "Artery")
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 
-# Check yolox_tiny_8x8_300e_coco.py and yolox_s_8x8_300e_coco.py for Mosaic examples. Doesn't work for instance segm?
 
 train_pipeline = [
     dict(type='LoadImageFromFile'),
@@ -59,16 +58,16 @@ data = dict(
         pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'coco_tma_tile_validation_fold0_fixed.json',
+        ann_file=data_root + 'coco_tma_generated_1k.json',
         img_prefix='',
         pipeline=test_pipeline,
         samples_per_gpu=24,
         classes=CLASSES),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'coco_tma_tile_validation_fold0_fixed.json',
+        ann_file=data_root + 'coco_tma_generated_1k.json',
         img_prefix='',
         pipeline=test_pipeline,
         samples_per_gpu=24,
         classes=CLASSES))
-evaluation = dict(metric=['bbox', 'segm'], classwise=True, classwise_log=True)  # ToDo: take out classwise_log for analyze_results and test
+evaluation = dict(metric=['bbox', 'segm'])  # , classwise=True, classwise_log=True
