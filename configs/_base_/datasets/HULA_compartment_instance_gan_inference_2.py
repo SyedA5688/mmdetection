@@ -6,29 +6,47 @@ CLASSES = ("Glomerulus", "Arteriole", "Artery")
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 
+# AutoAug
 
 train_pipeline = [
     dict(type='LoadImageFromFile'),
-    dict(type='LoadAnnotations',
-         with_bbox=True,
-         with_mask=True),
-    dict(type='Resize',
-         img_scale=img_scale,
-         keep_ratio=True),
-    dict(type='RandomFlip',
-         direction=["horizontal", "vertical", "diagonal"],
-         flip_ratio=[0.2, 0.2, 0.2]),
-    dict(type='RandomShift',
-         shift_ratio=0.5,
-         max_shift_px=512,
-         filter_thr_px=32),
-    dict(type='PhotoMetricDistortion',
-         brightness_delta=32,
-         contrast_range=(0.5, 1.5),
-         saturation_range=(0.5, 1.5),
-         hue_delta=18),
-    # dict(type='Pad', size_divisor=32),
+    dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
+    # dict(type='Resize', img_scale=(2048, 2048), keep_ratio=True),
+    dict(type='RandomFlip', flip_ratio=0.5),
+    dict(
+        type='AutoAugment',
+        policies=[[
+            dict(
+                type='Resize',
+                img_scale=[(768, 2048), (896, 2048), (1024, 2048), (1152, 2048),
+                           (1280, 2048), (1408, 2048), (1536, 2048), (1664, 2048),
+                           (1792, 2048), (1920, 2048), (2048, 2048)],
+                multiscale_mode='value',
+                keep_ratio=True)
+        ],
+            [
+                dict(
+                    type='Resize',
+                    img_scale=[(1152, 2048), (1280, 2048), (1408, 2048)],
+                    multiscale_mode='value',
+                    keep_ratio=True),
+                dict(
+                    type='RandomCrop',
+                    crop_type='absolute_range',
+                    crop_size=(624, 768),
+                    allow_negative_crop=True),
+                dict(
+                    type='Resize',
+                    img_scale=[(768, 2048), (896, 2048), (1024, 2048),
+                               (1152, 2048), (1280, 2048), (1408, 2048),
+                               (1536, 2048), (1664, 2048), (1792, 2048),
+                               (1920, 2048), (2048, 2048)],
+                    multiscale_mode='value',
+                    override=True,
+                    keep_ratio=True)
+            ]]),
     dict(type='Normalize', **img_norm_cfg),
+    # dict(type='Pad', size_divisor=32),
     dict(type='DefaultFormatBundle'),
     dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels', 'gt_masks']),
 ]
@@ -37,11 +55,11 @@ test_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(
         type='MultiScaleFlipAug',
-        img_scale=img_scale,
+        img_scale=(2048, 2048),
         flip=False,
         transforms=[
             dict(type='Resize', keep_ratio=True),
-            dict(type='RandomFlip', direction=["horizontal", "vertical", "diagonal"], flip_ratio=[0.2, 0.2, 0.2]),
+            dict(type='RandomFlip'),
             dict(type='Normalize', **img_norm_cfg),
             # dict(type='Pad', size_divisor=32),
             dict(type='ImageToTensor', keys=['img']),

@@ -10,8 +10,7 @@ import matplotlib.pyplot as plt
 
 # ToDo: Find a way to log and add the recall metrics
 # path to results directory
-RESULTS_DIR = '/data/syed/mmdet/run14_swin_multi_gpu_customaug/'  # Need end '/'
-# RESULTS_DIR = '/data/syed/mmdet/run15_maskrcnn_customaug/'  # Need end '/'
+RESULTS_DIR = '/data/syed/mmdet/run11_swin_multi_gpu_autoaug/'  # Need end '/'
 
 # name of the relevant config file, to be used for model results
 # CONFIG = [pos_py for pos_py in os.listdir(RESULTS_DIR) if pos_py.endswith('.py')][0]
