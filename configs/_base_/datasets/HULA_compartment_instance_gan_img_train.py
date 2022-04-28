@@ -6,7 +6,7 @@ CLASSES = ("Glomerulus", "Arteriole", "Artery")
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 
-# AutoAug
+# Check yolox_tiny_8x8_300e_coco.py and yolox_s_8x8_300e_coco.py for Mosaic examples. Doesn't work for instance segm?
 
 train_pipeline = [
     dict(type='LoadImageFromFile'),
@@ -24,33 +24,32 @@ train_pipeline = [
                 multiscale_mode='value',
                 keep_ratio=True)
         ],
-            [
-                dict(
-                    type='Resize',
-                    img_scale=[(1152, 2048), (1280, 2048), (1408, 2048)],
-                    multiscale_mode='value',
-                    keep_ratio=True),
-                dict(
-                    type='RandomCrop',
-                    crop_type='absolute_range',
-                    crop_size=(624, 768),
-                    allow_negative_crop=True),
-                dict(
-                    type='Resize',
-                    img_scale=[(768, 2048), (896, 2048), (1024, 2048),
-                               (1152, 2048), (1280, 2048), (1408, 2048),
-                               (1536, 2048), (1664, 2048), (1792, 2048),
-                               (1920, 2048), (2048, 2048)],
-                    multiscale_mode='value',
-                    override=True,
-                    keep_ratio=True)
-            ]]),
+                  [
+                      dict(
+                          type='Resize',
+                          img_scale=[(1152, 2048), (1280, 2048), (1408, 2048)],
+                          multiscale_mode='value',
+                          keep_ratio=True),
+                      dict(
+                          type='RandomCrop',
+                          crop_type='absolute_range',
+                          crop_size=(624, 768),
+                          allow_negative_crop=True),
+                      dict(
+                          type='Resize',
+                          img_scale=[(768, 2048), (896, 2048), (1024, 2048),
+                                     (1152, 2048), (1280, 2048), (1408, 2048),
+                                     (1536, 2048), (1664, 2048), (1792, 2048),
+                                     (1920, 2048), (2048, 2048)],
+                          multiscale_mode='value',
+                          override=True,
+                          keep_ratio=True)
+                  ]]),
     dict(type='Normalize', **img_norm_cfg),
-    # dict(type='Pad', size_divisor=32),
+    dict(type='Pad', size_divisor=32),
     dict(type='DefaultFormatBundle'),
     dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels', 'gt_masks']),
 ]
-
 test_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(
@@ -61,31 +60,31 @@ test_pipeline = [
             dict(type='Resize', keep_ratio=True),
             dict(type='RandomFlip'),
             dict(type='Normalize', **img_norm_cfg),
-            # dict(type='Pad', size_divisor=32),
+            dict(type='Pad', size_divisor=32),
             dict(type='ImageToTensor', keys=['img']),
             dict(type='Collect', keys=['img']),
         ])
 ]
 data = dict(
     samples_per_gpu=3,
-    workers_per_gpu=8,
+    workers_per_gpu=4,
     train=dict(
         type=dataset_type,
-        ann_file=data_root + 'coco_tma_tile_train_folds_1-4.json',
+        ann_file=data_root + 'coco_tma_generated_25k_pseudolabeled.json',
         img_prefix='',
         pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'coco_tma_generated_100k.json',
+        ann_file=data_root + 'coco_tma_tile_validation_fold0_fixed.json',
         img_prefix='',
         pipeline=test_pipeline,
         samples_per_gpu=24,
         classes=CLASSES),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'coco_tma_generated_100k.json',
+        ann_file=data_root + 'coco_tma_tile_validation_fold0_fixed.json',
         img_prefix='',
         pipeline=test_pipeline,
         samples_per_gpu=24,
         classes=CLASSES))
-evaluation = dict(metric=['bbox', 'segm'])  # , classwise=True, classwise_log=True
+evaluation = dict(metric=['bbox', 'segm'], classwise=True, classwise_log=True)  # ToDo: take out classwise_log for analyze_results and test

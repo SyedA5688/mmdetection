@@ -2,18 +2,8 @@ import os
 import json
 
 import cv2
-import numpy as np
+import pycocotools.mask as mask
 from tqdm import tqdm
-
-
-def get_contour_area(contour):
-    """
-    :param contour: Numpy array shape [n_points, 2]
-    :return: float of area in pixels of annotation defined by the contour
-    """
-    c1 = np.expand_dims(contour.astype(np.float32), 1)
-    c1 = cv2.UMat(c1)
-    return cv2.contourArea(c1)
 
 
 def polygonFromMask(maskedArr):
@@ -27,6 +17,7 @@ def polygonFromMask(maskedArr):
             valid_poly += 1
     if valid_poly == 0:
         raise ValueError('No polygons.')
+        # return [[]]
     return segmentation
 
 
@@ -73,7 +64,7 @@ categories = [
 ]
 
 tile_path = "/data/syed/TMA_4096_generated_crops"
-mmdet_segm_test_path = "/data/syed/mmdet/results/run11_ep4_json_results.segm.json"
+mmdet_segm_test_path = "/data/syed/mmdet/results/run11_ep4_25k_json_results.segm.json"
 curr_img_id = 0
 curr_annot_id = 0
 
@@ -90,8 +81,17 @@ for annot in mmdet_annots:
         mmdet_annot_filtered.append(annot)
 
 all_files = os.listdir(tile_path)
-all_files = all_files[0:1000]
+all_files = all_files[0:25000]  # ToDo: make sure to change accordingly
+file_annot_dict = {}
 print("Total images to process:", len(all_files))
+
+for annot in mmdet_annots:
+    if annot["image_id"] not in file_annot_dict:
+        file_annot_dict[annot["image_id"]] = []
+        file_annot_dict[annot["image_id"]].append(annot)
+    else:
+        file_annot_dict[annot["image_id"]].append(annot)
+
 
 for file in tqdm(all_files):
     image = {
@@ -103,22 +103,30 @@ for file in tqdm(all_files):
     images.append(image)
 
     # Handle annotations from mmdetection segm prediction json file
-    for annot in mmdet_annots:
-        if annot["image_id"] == curr_img_id:
+    try:
+        for annot in file_annot_dict[curr_img_id]:
+            maskedArr = mask.decode(annot["segmentation"])
+            segm_polygon = polygonFromMask(maskedArr)
+            area = float((maskedArr > 0.0).sum())
+            annot["segmentation"] = segm_polygon
+            annot["area"] = area
             annot["iscrowd"] = 0
             annot["id"] = curr_annot_id
             del annot["score"]
             annotations.append(annot)
             curr_annot_id += 1
-        elif annot["image_id"] > curr_img_id:
-            break  # Past annotations for this image
+    except ValueError as ve:
+        # print("No polygons for annotation")
+        pass
+    except KeyError as ke:
+        pass
 
     curr_img_id += 1
 
 # Gather all parts of COCO dictionary into one dictionary, dump into json file
 coco_dict = {"info": info, "images": images, "annotations": annotations, "categories": categories}
 
-with open('coco_tma_generated_1k_pseudolabeled.json', 'w', encoding='utf-8') as f:
+with open('coco_tma_generated_25k_pseudolabeled_faster.json', 'w', encoding='utf-8') as f:
     json.dump(coco_dict, f, ensure_ascii=False, indent=4)
 
 """

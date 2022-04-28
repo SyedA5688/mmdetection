@@ -153,7 +153,7 @@ python tools/analysis_tools/analyze_results.py \
       [--show-score-thr ${SHOW_SCORE_THR}] \
       [--cfg-options ${CFG_OPTIONS}]
  
- /home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03292022_5/bin/python tools/analysis_tools/analyze_results.py /home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/swin/mask_rcnn_swin-t-p4-w7_fpn_1x_coco_HULA_compartment_gan_inference_2.py /data/syed/mmdet/results/run11_ep4_gan1k_newfile.pkl /data/syed/mmdet/analyze_results/run11_ep4_gan1k_newfile --topk 25 --show-score-thr 0.3
+ /home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03292022_5/bin/python tools/analysis_tools/analyze_results.py /home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/swin/mask_rcnn_swin-t-p4-w7_fpn_1x_coco_HULA_compartment_gan_inference_2.py /data/syed/mmdet/results/run16_ep3_gan1k.pkl /data/syed/mmdet/analyze_results/run16_ep3_gan1k --topk 25 --show-score-thr 0.3
  
 """
 
