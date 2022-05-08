@@ -1,3 +1,13 @@
+
+"""
+This swin configuration file is intended for training swin transformers from scratch on GAN pseudo labels.
+Use this config if you want to train on real labels from scratch.
+
+Other customized configs needed:
+- HULA_compartment_instance_gan_img_train.py: Autoaugment TMA compartment dataset, GAN generated iamges + GAN pseudo labels.
+- schedule_1x_HULA_swin.py: AdamW optimizer + scheduling for swin transformer
+"""
+
 _base_ = [
     '../_base_/models/mask_rcnn_r50_fpn_HULA_compartment.py',
     '../_base_/datasets/HULA_compartment_instance_gan_img_train.py',
@@ -27,6 +37,6 @@ model = dict(
         init_cfg=dict(type='Pretrained', checkpoint=pretrained)),
     neck=dict(in_channels=[96, 192, 384, 768]))
 
-work_dir = "/data/syed/mmdet/run17_swin_gan_img_train_autoaug/"
-gpu_ids = range(2, 4)
+work_dir = "/data/syed/mmdet/run20_swin_gan_img_train_iter2_autoaug/"
+gpu_ids = range(4, 8)
 seed = 0

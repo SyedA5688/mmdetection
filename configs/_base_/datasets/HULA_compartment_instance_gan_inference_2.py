@@ -1,3 +1,9 @@
+
+"""
+This dataset config file is for running inference on GAN generated images. It uses a dummy config file to load 25k
+GAN generated images which will be annotated by the teacher network.
+"""
+
 # dataset settings
 dataset_type = 'CocoDataset'
 data_root = '/data/syed/'
@@ -5,8 +11,6 @@ img_scale = (2048, 2048)
 CLASSES = ("Glomerulus", "Arteriole", "Artery")
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
-
-# AutoAug
 
 train_pipeline = [
     dict(type='LoadImageFromFile'),
@@ -76,14 +80,14 @@ data = dict(
         pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'coco_tma_generated_100k.json',
+        ann_file=data_root + 'coco_tma_generated_25k.json',  # coco_tma_generated_25k.json is a dummy config file containing image names of 25k GAN images
         img_prefix='',
         pipeline=test_pipeline,
         samples_per_gpu=24,
         classes=CLASSES),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'coco_tma_generated_100k.json',
+        ann_file=data_root + 'coco_tma_generated_25k.json',
         img_prefix='',
         pipeline=test_pipeline,
         samples_per_gpu=24,

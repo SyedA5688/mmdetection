@@ -3,9 +3,19 @@ import numpy as np
 from sklearn.cluster import KMeans
 
 """
-where class_prediction_confs is a dict:
-where keys are class names and 
-values are lists of all confidence scores generated across the entire set prior to filtering
+This script does clustering on the pseudo annotations predicted by the teacher network. This will find the idea
+cutoffs for each class, which are used in other scripts to filter out noisy pseudo labels.
+
+
+Cutoffs for run 11 epoch 4 autoaug:
+{'Glomerulus': 0.5822800993919373, 'Arteriole': 0.24685976803302764, 'Artery': 0.5061547160148621}
+
+Cutoffs for run 19 epoch 2 autoaug:
+Glomerulus class clusters are within acceptable range; 39.36100785971682 percent low confidence, 60.63899214028318 percent high confidence.
+Large low confidence Arteriole class cluster detected, increasing leniency (75.17153462562334 percent of predictions).
+Artery class clusters are within acceptable range; 63.45969289827256 percent low confidence, 36.54030710172745 percent high confidence.
+{'Glomerulus': 0.5723221302032471, 'Arteriole': 0.3031373500823975, 'Artery': 0.5274305939674377}
+
 """
 
 CLASSES = ["Background", "Glomerulus", "Arteriole", "Artery"]
@@ -18,7 +28,7 @@ class_prediction_confs = {
     "Artery": [],
 }
 
-mmdet_segm_test_path = "/data/syed/mmdet/results/run11_ep4_json_results.segm.json"
+mmdet_segm_test_path = "/data/syed/mmdet/results/run19_ep2_25k_json_results.segm.json"  # ToDo: specify pseudo label test json output
 with open(mmdet_segm_test_path) as f:
     mmdet_annots = json.load(f)
 

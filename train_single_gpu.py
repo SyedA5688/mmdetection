@@ -7,16 +7,16 @@ import mmcv
 import os.path as osp
 
 """
-Distributed training:
-./tools/dist_test.sh ${CONFIG_FILE} ${GPU_NUM} [--out ${RESULT_FILE}] [--eval ${EVAL_METRICS}]
+Single-GPU training command:
+/home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03292022_5/bin/python train_single_gpu.py
 
-CUDA_VISIBLE_DEVICES=0,1 ./tools/dist_train.sh \
-/home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/swin/mask_rcnn_swin-t-p4-w7_fpn_1x_coco_HULA_compartment_gan_img_train.py 2
-
-/home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03212022_2/bin/python3.7 
-
+Distributed training command:
+CUDA_VISIBLE_DEVICES=4,5,6,7 ./tools/dist_train.sh \
+/home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/swin/mask_rcnn_swin-t-p4-w7_fpn_1x_coco_HULA_compartment_gan_img_train.py 4
 """
 
+# Two different config files, specify based on if you want to train on real images and annotations or GAN generated
+# images and pseudo annotations.
 
 # cfg = Config.fromfile("/home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/mask_rcnn/mask_rcnn_r50_fpn_1x_HULA_compartment.py")
 cfg = Config.fromfile("/home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/swin/mask_rcnn_swin-t-p4-w7_fpn_1x_coco_HULA_compartment_gan_img_train.py")

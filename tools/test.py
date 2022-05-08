@@ -32,10 +32,10 @@ from mmdet.utils import setup_multi_processes
 # json output
 /home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03292022_5/bin/python tools/test.py \
 /home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/swin/mask_rcnn_swin-t-p4-w7_fpn_1x_coco_HULA_compartment_gan_inference_2.py \
-/data/syed/mmdet/run11_swin_multi_gpu_autoaug/epoch_4.pth \
---gpu-id 1 \
+/data/syed/mmdet/run19_swin_autoaug_finetuning/epoch_2.pth \
+--gpu-id 2 \
 --format-only \
---options "jsonfile_prefix=./run11_ep4_100k_json_results"
+--options "jsonfile_prefix=./run19_ep2_25k_json_results"
 
 
 

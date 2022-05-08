@@ -10,7 +10,8 @@ import matplotlib.pyplot as plt
 
 # ToDo: Find a way to log and add the recall metrics
 # path to results directory
-RESULTS_DIR = '/data/syed/mmdet/run17_swin_gan_img_train_autoaug/'  # Need end '/'
+# /home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03292022_5/bin/python visualize_log_file.py
+RESULTS_DIR = '/data/syed/mmdet/run20_swin_gan_img_train_iter2_autoaug/'  # Need end '/'
 
 # name of the relevant config file, to be used for model results
 # CONFIG = [pos_py for pos_py in os.listdir(RESULTS_DIR) if pos_py.endswith('.py')][0]

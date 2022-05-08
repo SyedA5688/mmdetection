@@ -1,12 +1,17 @@
+
+"""
+This dataset config file is for training on GAN generated images + pseudo annotations from teacher network.
+ The json file from test script output needs to be specified in the training annotation dictionary below, so
+ that pseudo annotations are used during training.
+"""
+
 # dataset settings
 dataset_type = 'CocoDataset'
-data_root = '/data/syed/'
+data_root = '/data/syed/'  # ToDo: Change path to personal directory structure
 img_scale = (2048, 2048)
 CLASSES = ("Glomerulus", "Arteriole", "Artery")
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
-
-# Check yolox_tiny_8x8_300e_coco.py and yolox_s_8x8_300e_coco.py for Mosaic examples. Doesn't work for instance segm?
 
 train_pipeline = [
     dict(type='LoadImageFromFile'),
@@ -50,6 +55,7 @@ train_pipeline = [
     dict(type='DefaultFormatBundle'),
     dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels', 'gt_masks']),
 ]
+
 test_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(
@@ -65,12 +71,13 @@ test_pipeline = [
             dict(type='Collect', keys=['img']),
         ])
 ]
+
 data = dict(
     samples_per_gpu=3,
     workers_per_gpu=4,
     train=dict(
         type=dataset_type,
-        ann_file=data_root + 'coco_tma_generated_25k_pseudolabeled.json',
+        ann_file=data_root + 'coco_tma_run19_ep2_25k_pseudolabeled.json',  # ToDo: put in name of json file produced by test script containing pseudoannotations made by teacher network on GAN images
         img_prefix='',
         pipeline=train_pipeline),
     val=dict(
@@ -87,4 +94,4 @@ data = dict(
         pipeline=test_pipeline,
         samples_per_gpu=24,
         classes=CLASSES))
-evaluation = dict(metric=['bbox', 'segm'], classwise=True, classwise_log=True)  # ToDo: take out classwise_log for analyze_results and test
+evaluation = dict(metric=['bbox', 'segm'], classwise=True, classwise_log=True)

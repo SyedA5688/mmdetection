@@ -6,8 +6,9 @@ CLASSES = ("Glomerulus", "Arteriole", "Artery")
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 
-# Check yolox_tiny_8x8_300e_coco.py and yolox_s_8x8_300e_coco.py for Mosaic examples. Doesn't work for instance segm?
-
+# This training pipeline has the custom augmentation pipeline including flips, shifts, and photometric distortions.
+# This caused problems when training a swin transformer and having it run inference on GAN images, the model was
+# not predicting segmentations correctly. Don't use this.
 train_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(type='LoadAnnotations',

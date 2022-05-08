@@ -6,6 +6,12 @@ import pycocotools.mask as mask
 from tqdm import tqdm
 
 
+"""
+This script converts a test script pseudo annotation json output file into COCO format. The test file output is
+already close to being in COCO format, but needs some small changes.
+"""
+
+
 def polygonFromMask(maskedArr):
     # adapted from https://github.com/hazirbas/coco-json-converter/blob/master/generate_coco_json.py
     contours, _ = cv2.findContours(maskedArr, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -19,15 +25,6 @@ def polygonFromMask(maskedArr):
         raise ValueError('No polygons.')
         # return [[]]
     return segmentation
-
-
-"""
-From clustering script:
-Glomerulus class clusters are within acceptable range; 30.070921985815602 percent low confidence, 69.9290780141844 percent high confidence.
-Large low confidence Arteriole class cluster detected, increasing leniency (82.53676470588235 percent of predictions).
-Artery class clusters are within acceptable range; 60.024829298572314 percent low confidence, 39.975170701427686 percent high confidence.
-{'Glomerulus': 0.5822800993919373, 'Arteriole': 0.24685976803302764, 'Artery': 0.5061547160148621}
-"""
 
 
 # Define parts of COCO dataset dictionary
@@ -63,14 +60,14 @@ categories = [
     },
 ]
 
-tile_path = "/data/syed/TMA_4096_generated_crops"
-mmdet_segm_test_path = "/data/syed/mmdet/results/run11_ep4_25k_json_results.segm.json"
+tile_path = "/data/syed/TMA_4096_generated_crops"  # Path to tiles
+mmdet_segm_test_path = "/data/syed/mmdet/results/run19_ep2_25k_json_results.segm.json"  # ToDo: specify test script json pseudo anntoation output file
 curr_img_id = 0
 curr_annot_id = 0
 
-# Filtering cutoffs obtained from confidence clustering script
-FILTERING_CUTOFFS = {'Glomerulus': 0.5822800993919373, 'Arteriole': 0.24685976803302764, 'Artery': 0.5061547160148621}
-FILTERING_CUTOFF_LIST = [0, 0.5822800993919373, 0.24685976803302764, 0.5061547160148621]
+# ToDo: Fill in filtering cutoffs obtained from confidence clustering script
+FILTERING_CUTOFFS = {'Glomerulus': 0.5723221302032471, 'Arteriole': 0.3031373500823975, 'Artery': 0.5274305939674377}
+FILTERING_CUTOFF_LIST = [0, 0.5723221302032471, 0.3031373500823975, 0.5274305939674377]
 
 with open(mmdet_segm_test_path) as f:
     mmdet_annots = json.load(f)
@@ -81,7 +78,7 @@ for annot in mmdet_annots:
         mmdet_annot_filtered.append(annot)
 
 all_files = os.listdir(tile_path)
-all_files = all_files[0:25000]  # ToDo: make sure to change accordingly
+all_files = all_files[0:25000]  # Using 25,000 images
 file_annot_dict = {}
 print("Total images to process:", len(all_files))
 
@@ -93,6 +90,7 @@ for annot in mmdet_annots:
         file_annot_dict[annot["image_id"]].append(annot)
 
 
+# Make small modifications to make sure pseudo annotations are in COCO format
 for file in tqdm(all_files):
     image = {
         "id": curr_img_id,
@@ -126,38 +124,18 @@ for file in tqdm(all_files):
 # Gather all parts of COCO dictionary into one dictionary, dump into json file
 coco_dict = {"info": info, "images": images, "annotations": annotations, "categories": categories}
 
-with open('coco_tma_generated_25k_pseudolabeled_faster.json', 'w', encoding='utf-8') as f:
+with open('coco_tma_run19_ep2_25k_pseudolabeled.json', 'w', encoding='utf-8') as f:
     json.dump(coco_dict, f, ensure_ascii=False, indent=4)
 
 """
-Goal: MMDetection COCO format
-{
-    "images": [image],
-    "annotations": [annotation],
-    "categories": [category]
-}
+Run 11 Epoch 4:
+From clustering script:
+Glomerulus class clusters are within acceptable range; 30.070921985815602 percent low confidence, 69.9290780141844 percent high confidence.
+Large low confidence Arteriole class cluster detected, increasing leniency (82.53676470588235 percent of predictions).
+Artery class clusters are within acceptable range; 60.024829298572314 percent low confidence, 39.975170701427686 percent high confidence.
+{'Glomerulus': 0.5822800993919373, 'Arteriole': 0.24685976803302764, 'Artery': 0.5061547160148621}
 
 
-image = {
-    "id": int,
-    "width": int,
-    "height": int,
-    "file_name": str,
-}
+Run 19 Epoch 2:
 
-annotation = {
-    "id": int,
-    "image_id": int,
-    "category_id": int,
-    "segmentation": RLE or [polygon],
-    "area": float,
-    "bbox": [x,y,width,height],
-    "iscrowd": 0 or 1,
-}
-
-categories = [{
-    "id": int,
-    "name": str,
-    "supercategory": str,
-}]
 """

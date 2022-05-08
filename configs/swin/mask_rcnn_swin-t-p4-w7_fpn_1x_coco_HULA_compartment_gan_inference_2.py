@@ -1,3 +1,14 @@
+
+"""
+This swin configuration file is intended for running inference on GAN images with a trained swin transformer.
+A separate inference config file may not be needed, but one was created anyways to be safe. Use this config
+if you want to run inference on GAN-generated images.
+
+Other customized configs needed:
+- HULA_compartment_instance_gan_inference_2.py: Autoaugment TMA compartment dataset, real training labels.
+- schedule_1x_HULA_swin.py: AdamW optimizer + scheduling for swin transformer
+"""
+
 _base_ = [
     '../_base_/models/mask_rcnn_r50_fpn_HULA_compartment.py',
     '../_base_/datasets/HULA_compartment_instance_gan_inference_2.py',
@@ -27,6 +38,6 @@ model = dict(
         init_cfg=dict(type='Pretrained', checkpoint=pretrained)),
     neck=dict(in_channels=[96, 192, 384, 768]))
 
-work_dir = "/data/syed/mmdet/run16_swin_multi_gpu_customaug_highreg/"
+work_dir = "/data/syed/mmdet/run20_swin_multi_gpu_autoaug/"  # ToDo: Change experiment name
 gpu_ids = range(5, 6)
 seed = 0

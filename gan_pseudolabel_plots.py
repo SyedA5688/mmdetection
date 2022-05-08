@@ -10,6 +10,12 @@ import pycocotools.mask as mask
 from tqdm import tqdm
 
 
+"""
+This script is an adaptation of the script Pietro provided for creating the violin plots of pseudo annotatino
+sizes and counts. Useful for visualizing the balance between pseudo-annotation classes.
+"""
+
+
 def polygonFromMask(maskedArr):
     # adapted from https://github.com/hazirbas/coco-json-converter/blob/master/generate_coco_json.py
     contours, _ = cv2.findContours(maskedArr, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -49,12 +55,12 @@ categories = [
     },
 ]
 
-MODEL_DIR = "/data/syed/mmdet/results/run11_ep4_gan1k_newfile/"
-mmdet_segm_test_path = "/data/syed/mmdet/results/run11_ep4_25k_json_results.segm.json"
+MODEL_DIR = "/data/syed/mmdet/results/run19_ep2_gan25k/"  # ToDo: Specify directory, plots will be saved to here
+mmdet_segm_test_path = "/data/syed/mmdet/results/run19_ep2_25k_json_results.segm.json"  # ToDo: Specify path to pseudo annotation json file
 
 # Filtering cutoffs obtained from confidence clustering script
-FILTERING_CUTOFFS = {'Glomerulus': 0.5822800993919373, 'Arteriole': 0.24685976803302764, 'Artery': 0.5061547160148621}
-FILTERING_CUTOFF_LIST = [0, 0.5822800993919373, 0.24685976803302764, 0.5061547160148621]
+FILTERING_CUTOFFS = {'Glomerulus': 0.5723221302032471, 'Arteriole': 0.3031373500823975, 'Artery': 0.5274305939674377}
+FILTERING_CUTOFF_LIST = [0, 0.5723221302032471, 0.3031373500823975, 0.5274305939674377]
 
 # Load mmdetection test pseudoannotations
 with open(mmdet_segm_test_path) as f:
@@ -162,6 +168,7 @@ ps.get_figure().savefig(MODEL_DIR + "gan_25k_FILT_pred_annotations_scores_counts
 
 """
 Outputs for GAN 25k images run 11 epoch 4 autoaug:
+{'Glomerulus': 0.5822800993919373, 'Arteriole': 0.24685976803302764, 'Artery': 0.5061547160148621}
 [{'id': 1, 'name': 'Glomerulus', 'supercategory': 'Compartment'}, {'id': 2, 'name': 'Arteriole', 'supercategory': 'Compartment'}, {'id': 3, 'name': 'Artery', 'supercategory': 'Compartment'}]
 3
 Predicted annotations class counts: {1: 61863, 2: 24849, 3: 14868}
@@ -170,5 +177,20 @@ Predicted annotations score averages: {1: 0.9577606243831547, 2: 0.4684670488392
 Predicted annotations score std: {1: 0.0824473120893427, 2: 0.18075713444196073, 3: 0.14273590035292677}
 Predicted annotations score max: {1: 0.9989338517189026, 2: 0.9861884713172913, 3: 0.9974004030227661}
 Predicted annotations score min: {1: 0.5823073387145996, 2: 0.2468603253364563, 3: 0.5062583684921265}
+
+
+Outputs for GAN 25k images run 19 epoch 2 autoaug
+FILTERING_CUTOFFS = {'Glomerulus': 0.5723221302032471, 'Arteriole': 0.3031373500823975, 'Artery': 0.5274305939674377}
+
+List length after calculating area for each annotation: 125494
+[{'id': 1, 'name': 'Glomerulus', 'supercategory': 'Compartment'}, {'id': 2, 'name': 'Arteriole', 'supercategory': 'Compartment'}, {'id': 3, 'name': 'Artery', 'supercategory': 'Compartment'}]
+3
+Predicted annotations class counts: {1: 64112, 2: 43109, 3: 18273}
+Predicted annotations mask area averages: {1: 380439.99043860746, 2: 63480.563362638895, 3: 813934.4956493187}
+Predicted annotations score averages: {1: 0.9535911689885007, 2: 0.5850455903271942, 3: 0.8706843966086797}
+Predicted annotations score std: {1: 0.09312808722203361, 2: 0.19559299130850324, 3: 0.14327451709321617}
+Predicted annotations score max: {1: 0.9995847344398499, 2: 0.993980884552002, 3: 0.9993686079978943}
+Predicted annotations score min: {1: 0.5723705887794495, 2: 0.303139328956604, 3: 0.5274444222450256}
+
 """
-# ToDo: Discuss with Pietro, not too unbalanced after filtering
+

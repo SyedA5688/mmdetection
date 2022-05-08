@@ -1,9 +1,16 @@
+
+"""
+This dataset config file is for training a model from scratch on TMA dataset. It loads the training and validation
+folds and real annotations for the TMA dataset.
+"""
+
 # dataset settings
 dataset_type = 'CocoDataset'
-data_root = '/data/syed/'
+data_root = '/data/syed/'  # ToDo: Change path to personal directory structure
 CLASSES = ("Glomerulus", "Arteriole", "Artery")
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
+
 train_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
@@ -46,6 +53,7 @@ train_pipeline = [
     dict(type='DefaultFormatBundle'),
     dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels', 'gt_masks']),
 ]
+
 test_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(
@@ -61,6 +69,7 @@ test_pipeline = [
             dict(type='Collect', keys=['img']),
         ])
 ]
+
 data = dict(
     samples_per_gpu=3,
     workers_per_gpu=8,
