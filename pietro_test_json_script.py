@@ -5,10 +5,9 @@ import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Here we generate a new .json file containing pseudo annotations and GT annotations, concatenated in mmdetection coco format
-# set the path to your model, data, segm.json, the testdummy used for inference, and the GT train .json file
+# This is the original file sent by Pietro containing some code for handling test output json file. Don't use this file, the code has been adapted into other files
 
-MODEL_DIR = "/data/syed/mmdet/results/run11_ep4_gan1k_newfile/"
+MODEL_DIR = ""
 # '/lhome1/c-pcicalese/results/nuimage/ins_seg/SuperNet/CascadeRCNN/7_13_2021_resnext101_baseline/epoch_23/'
 SEGM = 'run11_ep4_json_results.segm.json'  # 'segm_init_clean.json'
 TEST_DUMMY = '/lhome1/c-pcicalese/datasets/nuimage/annotations/instances_nuimage_dummy_coco_rm_no_mask_mmdetection.json'

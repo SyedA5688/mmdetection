@@ -21,25 +21,15 @@ from mmdet.utils import setup_multi_processes
 
 
 """
-/home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03292022_5/bin/python tools/test.py \
-/home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/swin/mask_rcnn_swin-t-p4-w7_fpn_1x_coco_HULA_compartment_gan_inference_2.py \
-/data/syed/mmdet/run16_swin_multi_gpu_customaug_highreg/epoch_3.pth \
---work-dir /data/syed/mmdet/results/run16_ep3_gan1k/ \
---out /data/syed/mmdet/results/run16_ep3_gan1k.pkl \
---eval bbox segm --options "classwise=True" --gpu-id 1
+# Command to perform inference on GAN generated images by a teacher network checkpoint,
+# and output test results to a JSON file.
 
-
-# json output
 /home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03292022_5/bin/python tools/test.py \
 /home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/swin/mask_rcnn_swin-t-p4-w7_fpn_1x_coco_HULA_compartment_gan_inference_2.py \
 /data/syed/mmdet/run19_swin_autoaug_finetuning/epoch_2.pth \
 --gpu-id 2 \
 --format-only \
 --options "jsonfile_prefix=./run19_ep2_25k_json_results"
-
-
-
-/home/cougarnet.uh.edu/srizvi7/anaconda3/envs/openmmlab_03292022_5/bin/python tools/test.py /home/cougarnet.uh.edu/srizvi7/Desktop/mmdetection/configs/swin/mask_rcnn_swin-t-p4-w7_fpn_1x_coco_HULA_compartment.py /data/syed/mmdet/run14_swin_multi_gpu_customaug/epoch_3.pth --work-dir /data/syed/mmdet/results/run14_ep3/ --out /data/syed/mmdet/results/run14_ep3.pkl --eval bbox segm --options "classwise=True" --gpu-id 5
 """
 
 

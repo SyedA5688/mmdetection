@@ -65,7 +65,7 @@ mmdet_segm_test_path = "/data/syed/mmdet/results/run19_ep2_25k_json_results.segm
 curr_img_id = 0
 curr_annot_id = 0
 
-# ToDo: Fill in filtering cutoffs obtained from confidence clustering script
+# ToDo: *IMPORTANT* Fill in filtering cutoffs obtained from confidence clustering script (./json_test_confidence_clustering.py)
 FILTERING_CUTOFFS = {'Glomerulus': 0.5723221302032471, 'Arteriole': 0.3031373500823975, 'Artery': 0.5274305939674377}
 FILTERING_CUTOFF_LIST = [0, 0.5723221302032471, 0.3031373500823975, 0.5274305939674377]
 
