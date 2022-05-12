@@ -3,7 +3,7 @@
 
 This repository is a fork of mmdetection used for running Noisy Student Segmentation experiments
 
-## Important Custim Config Files
+## Important Custom Config Files
 * Swin Transformer config files
   * ./configs/swin/mask_rcnn_swin-t-p4-w7_fpn_1x_coco_HULA_compartment.py
     * Used for training swin transformers from scratch. This means either a regular experiment training on real labels, or a finetuning experiment where a checkpoint is loaded in that was trained on pseudolabels
