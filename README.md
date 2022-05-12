@@ -52,3 +52,16 @@ This repository is a fork of mmdetection used for running Noisy Student Segmenta
    3. Now the json file created can be used as pseudo labels to train a student on.
 2. For distributed training on pseudo labels, there is a command written in the script ./train_single_gpu.py that is helpful for distributed training
 
+
+## Experiments already run
+* Experiments are on NAS. Directory explanation:
+  * /data/syed/ - top level directory, dataset COCO json files will be here
+    * /data/syed/mmdet
+      * /data/syed/mmdet/analyze_results - on a few early experiments I visualized pseudo labels generated in test script. These are generated using ./tools/analysis_tools/analyze_results.py
+      * /data/syed/mmdet/browse_dataset - visualizing real annotations on a few tiles in the TMA dataset
+      * /data/syed/mmdet/results - test script (./tools/test.py) output for different training runs
+      * /data/syed/mmdet/run______
+        * Training runs are kept here
+        * run17 is the first noisy student iteration pseudo label training
+        * run19 is the first noisy student iteration fine tuning
+        * run20 is the second noisy student iteration pseudo label training
